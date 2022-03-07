@@ -3,7 +3,7 @@
 ## About Fête
 Fête provides a simple, standardized interface to store and serve feature *definitions*. While many feature store solutions rely on a repeated call and response to support deployed models, Fête enables the deployment of feature *definitions* to the model pre-compute resource.
 
-![Fête vs Feature Stores](readme\fête_usage.png)
+![Fête vs Feature Stores](https://github.com/LiamABailey/Fete/blob/main/readme/f%C3%AAte_usage.png?raw=true)
 
 As can be seen above, the core usage pattern in Fête is not dissimilar to many other traditional feature stores. The key difference comes in production: instead of frequently requesting feature values from a feature store, with Fête feature *definitions* are only requested at pipeline setup, helping to limit network traffic.
 
