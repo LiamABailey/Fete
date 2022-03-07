@@ -1,0 +1,11 @@
+# python ignorables
+__pycache__/
+*.py[cod]
+
+# go ignorables
+*.exe
+*.exe~
+*.dll
+*.so
+*.dyli
+*.out
