@@ -1,4 +1,4 @@
-# dockerfile for running api
+# (fete) dockerfile for running api
 # app is built on-container so build
 # happens on runtime env
 FROM golang:1.16-alpine
