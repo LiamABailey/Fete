@@ -10,9 +10,16 @@ type Insertable interface {
   SetDateUpdated()
 }
 
+// defines test information
 type DefinitionSubTest struct {
-  // each definition test has one or more subtests, which describe the
-  // specific test parameters
+  ID                    bson.ObjectId       `json:"id" bson:"_id"`
+  DefinitionTestIDs     []bson.ObjectId     `json:"DefinitionTest" bson:"related_feature_definitions"`
+  SubTestName           string              `json:"subtest_name" bson:"subtest_name"`
+  Inputs                []Values            `json:"inputs" bson:"inputs"`
+  Expectations          []EvalDefiniton     `json:"expectations" bson:"expected_results_with_tests"`
+  DateAdded             time.Time           `json:"date_added" bson:"date_added"`
+  DateUpdated           time.Time           `json:"date_updated" bson:"date_updated"`
+  Tags                  []Tag               `json:"tags" bson:"tags"`
 }
 
 func (dst *  DefinitionSubTest) SetDateAdded() {
@@ -22,8 +29,17 @@ func (dst *  DefinitionSubTest) SetDateAdded() {
 func (dst  *DefinitionSubTest) SetDateUpdated() {
   // set the record update date
 }
+
+// type defining linkages between subtests and features
 type DefinitionTest struct {
-  // stores definition test information
+  ID                    bson.ObjectId       `json:"id" bson:"_id"`
+  FeatureDefinitionIDs  []bson.ObjectId     `json:"related_feature_definitons" bson:"related_feature_definitions"`
+  DefintionSubTestIDs   []DefinitionSubTest `json:"subtests" bson:"subtests"`
+  TestName              string              `json:"test_name" bson:"test_name"`
+  TestDescription       string              `json:"test_description" bson:"test_description"`
+  DateAdded             time.Time           `json:"date_added" bson:"date_added"`
+  DateUpdated           time.Time           `json:"date_updated" bson:"date_updated"`
+  Tags                  []Tag               `json:"tags" bson:"tags"`
 }
 
 func (dt *  DefinitionTest) SetDateAdded() {
@@ -34,18 +50,27 @@ func (dt *DefinitionTest) SetDateUpdated() {
   // set the record update date
 }
 
+type EvalDefinition struct {
+  ExpectedOutput    Value   `json:"expected_output" bson:"expected_output"`
+  AssertType        string  `json:"assertion_type" bson:"assertion_type"`
+  Atol              float   `json:"atol" bson:"absolute_tolerance"`
+  Rtol              float   `json:"rtol" bson:"relative_tolerance"`
+  Ordered           bool    `json:"ordered" bson:"ordered"`
+}
+
 type FeatureDefinition struct {
-  ID                    bson.Objectid   `json:"id" bson:"_id"`
+  FeatureDefinitionID   bson.Objectid   `json:"id" bson:"_id"`
   FeatureID             int             `json:"feature_id" bson:"id"`
   VersionID             int             `json:"version_id" bson:"version_id"`
-  PackageId             bson.Objectid   `json:"package_id" bson:"package_id"`
+  PackageID             bson.Objectid   `json:"package_id" bson:"package_id"`
   FeatureEnvironmentID  bson.ObjectId   `json:"feature_environment_id" bson:"feature_environment_id"`
   FeatureName           string          `json:"feature_name" bson:"feature_name"`
   VersionName           string          `json:"version_name" bson:"version_name"`
   InputArgs             []Variable      `json:"input_args" bson:"input_args"`
-  RetrunValues          []Variable      `json:"return_values" bson:"return_values"`
+  ReturnValues          []Variable      `json:"return_values" bson:"return_values"`
   DateAdded             time.Time       `json:"date_added" bson:"date_added"`
   DateUpdated           time.Time       `json:"date_updated" bson:"date_updated"`
+  Tags                  []Tag           `json:"tags" bson:"tags"`
 }
 
 type FeatureDefinitionRequestEventLog struct {
@@ -92,6 +117,11 @@ func (t *  Tag) SetDateAdded() {
 
 func (t *Tag) SetDateUpdated() {
   // set the record update date
+}
+
+type Value    struct {
+  Value   string  `json:"value" bson:"value"`
+  Type    string  `json:"type" bson:"type"`
 }
 
 type Variable struct {
