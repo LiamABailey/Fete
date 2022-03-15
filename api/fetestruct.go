@@ -102,7 +102,7 @@ type Packages struct {
   PackageName       string    `json:"name" bson:"name"`
   Version           string    `json:"version" bson:"version"`
   ImportStatement   string    `json:"import_statement" bson:"import_statement"`
-  LocalWHLName      string     `json:"local_whl_name" bson:"local_whl_name"`    
+  LocalWHLName      string     `json:"local_whl_name" bson:"local_whl_name"`
 }
 
 type Tag struct {
@@ -124,22 +124,30 @@ func (t *Tag) SetDateUpdated() {
 type FeatureDefinitionRequestEventLog struct {
   ID                    bson.ObjectId   `json:"id" bson:"_id"`
   Requestor             string          `json:"requestor" bson:"requestor"`
-  FeatureDefinitionId   string          `json:"feature_definition" bson:"feature_definition"`
+  FeatureDefinitionID   string          `json:"feature_definition" bson:"feature_definition"`
   RequireTestPass       bool            `json:"test_pass_required" bson:"test_pass_required"`
-  TestResults           []SubTestResult `json:"subtest_results" bson:"subtest_results"`
   DefinitionReturned    bool            `json:"definition_returned" bson:"definition_returned"`
   ReturnStatusMessage   string          `json:"return_status_message" bson:"return_status_message"`
   RequestedAt           time.Time       `json:"requested_at" bson:"requested_at"`
 }
 
-
+type FeatureDefinitionTestEventLog struct {
+  ID                    bson.ObjectId   `json:"id" bson:"_id"`
+  Requestor             string          `json:"requestor" bson:"requestor"`
+  FeatureDefinitionID   string          `json:"feature_definition" bson:"feature_definition"`
+  DefinitionTest        bson.ObjectId   `json:"definition_test" bson:"definition_test"`
+  SubTestResults        []SubTestResult `json:"subtest_results" bson:"subtest_results"`
+  TestPassed            bool            `json:"test_passed" bson:"test_passed"`
+  RequestedAt           time.Time       `json:"requested_at" bson:"requested_at"`
+}
 
 type SubTestResult struct {
-  ID                  bson.ObjectId   `json:"id" bson:"_id"`
-  DefinitionSubTest   bson.ObjectId   `json:"definition_subtest" bson:"definition_subtest"`
-  TestPassed          bool            `json:"test_passed" bson:"test_passed"`
-  Message             string          `json:"test_message" bson:"test_message"`
-  TestExecutedAt      time.Time       `json:"test_executed_at" bson:"test_executed_at"`
+  ID                    bson.ObjectId   `json:"id" bson:"_id"`
+  DefinitionSubTest     bson.ObjectId   `json:"definition_subtest" bson:"definition_subtest"`
+  FeatureDefinitionID   string          `json:"feature_definition" bson:"feature_definition"`
+  TestPassed            bool            `json:"test_passed" bson:"test_passed"`
+  Message               string          `json:"test_message" bson:"test_message"`
+  TestExecutedAt        time.Time       `json:"test_executed_at" bson:"test_executed_at"`
 }
 
 type Value struct {
