@@ -73,19 +73,6 @@ type FeatureDefinition struct {
   Tags                  []Tag           `json:"tags" bson:"tags"`
 }
 
-type FeatureDefinitionRequestEventLog struct {
-  // defines requests, the feature requested
-  // and retrieval/test success
-}
-
-func (l *  FeatureDefinitionRequestEventLog) SetDateAdded() {
-  // set the record instertion date
-}
-
-func (l *FeatureDefinitionRequestEventLog) SetDateUpdated() {
-  // set the record update date
-}
-
 type FeatureEnvironment struct {
   // stores environmental expectations for a feature
   // defition (python version, packages with version)
@@ -108,7 +95,11 @@ func (fd *FeatureDefinition) SetDateUpdated() {
 }
 
 type Tag struct {
-  // defines tags for labeling features, environments
+  ID                  bson.ObjectId   `json:"id" bson:"_id"`
+  Name                string          `json:"name" bson:"name"`
+  Description         string          `json:"description" bson:"description"`
+  DateAdded             time.Time       `json:"date_added" bson:"date_added"`
+  DateUpdated           time.Time       `json:"date_updated" bson:"date_updated"`
 }
 
 func (t *  Tag) SetDateAdded() {
@@ -119,7 +110,28 @@ func (t *Tag) SetDateUpdated() {
   // set the record update date
 }
 
-type Value    struct {
+type FeatureDefinitionRequestEventLog struct {
+  ID                    bson.ObjectId   `json:"id" bson:"_id"`
+  Requestor             string          `json:"requestor" bson:"requestor"`
+  FeatureDefinitionId   string          `json:"feature_definition" bson:"feature_definition"`
+  RequireTestPass       bool            `json:"test_pass_required" bson:"test_pass_required"`
+  TestResults           []SubTestResult `json:"subtest_results" bson:"subtest_results"`
+  DefinitionReturned    bool            `json:"definition_returned" bson:"definition_returned"`
+  ReturnStatusMessage   string          `json:"return_status_message" bson:"return_status_message"`
+  RequestedAt           time.Time       `json:"requested_at" bson:"requested_at"`
+}
+
+
+
+type SubTestResult struct {
+  ID                  bson.ObjectId   `json:"id" bson:"_id"`
+  DefinitionSubTest   bson.ObjectId   `json:"definition_subtest" bson:"definition_subtest"`
+  TestPassed          bool            `json:"test_passed" bson:"test_passed"`
+  Message             string          `json:"test_message" bson:"test_message"`
+  TestExecutedAt      time.Time       `json:"test_executed_at" bson:"test_executed_at"`
+}
+
+type Value struct {
   Value   string  `json:"value" bson:"value"`
   Type    string  `json:"type" bson:"type"`
 }
