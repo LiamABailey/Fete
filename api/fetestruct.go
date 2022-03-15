@@ -73,9 +73,21 @@ type FeatureDefinition struct {
   Tags                  []Tag           `json:"tags" bson:"tags"`
 }
 
+func (fd *  FeatureDefinition) SetDateAdded() {
+  // set the record instertion date
+}
+
+func (fd *FeatureDefinition) SetDateUpdated() {
+  // set the record update date
+}
+
 type FeatureEnvironment struct {
-  // stores environmental expectations for a feature
-  // defition (python version, packages with version)
+  ID                    bson.ObjectId   `json:"id" bson:"_id"`
+  PythonVersion         []string        `json:"python_version" bson:"python_version"`
+  RequiredPackages      []Packages      `json:"required_packages" bson:"required_packages"`
+  DateAdded             time.Time       `json:"date_added" bson:"date_added"`
+  DateUpdated           time.Time       `json:"date_updated" bson:"date_updated"`
+  Tags                  []Tag           `json:"tags" bson:"tags"`
 }
 
 func (fe *  FeatureEnvironment) SetDateAdded() {
@@ -86,20 +98,19 @@ func (fe *FeatureEnvironment) SetDateUpdated() {
   // set the record update date
 }
 
-func (fd *  FeatureDefinition) SetDateAdded() {
-  // set the record instertion date
-}
-
-func (fd *FeatureDefinition) SetDateUpdated() {
-  // set the record update date
+type Packages struct {
+  PackageName       string    `json:"name" bson:"name"`
+  Version           string    `json:"version" bson:"version"`
+  ImportStatement   string    `json:"import_statement" bson:"import_statement"`
+  LocalWHLName      string     `json:"local_whl_name" bson:"local_whl_name"`    
 }
 
 type Tag struct {
-  ID                  bson.ObjectId   `json:"id" bson:"_id"`
-  Name                string          `json:"name" bson:"name"`
-  Description         string          `json:"description" bson:"description"`
-  DateAdded             time.Time       `json:"date_added" bson:"date_added"`
-  DateUpdated           time.Time       `json:"date_updated" bson:"date_updated"`
+  ID             bson.ObjectId   `json:"id" bson:"_id"`
+  Name           string          `json:"name" bson:"name"`
+  Description    string          `json:"description" bson:"description"`
+  DateAdded      time.Time       `json:"date_added" bson:"date_added"`
+  DateUpdated    time.Time       `json:"date_updated" bson:"date_updated"`
 }
 
 func (t *  Tag) SetDateAdded() {
