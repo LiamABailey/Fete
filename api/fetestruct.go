@@ -70,12 +70,12 @@ type FeatureDefinition struct {
 type FeatureEnvironment struct {
   ID                    bson.ObjectId   `json:"id" bson:"_id"`
   PythonVersion         []string        `json:"python_version" bson:"python_version"`
-  RequiredPackages      []Packages      `json:"required_packages" bson:"required_packages"`
+  RequiredPackages      []Package      `json:"required_packages" bson:"required_packages"`
   Dates                 DateInfo            `json:"dates" bson:"dates"`
   Tags                  []Tag           `json:"tags" bson:"tags"`
 }
 
-type Packages struct {
+type Package struct {
   PackageName       string    `json:"name" bson:"name"`
   Version           string    `json:"version" bson:"version"`
   ImportStatement   string    `json:"import_statement" bson:"import_statement"`
@@ -86,7 +86,7 @@ type Tag struct {
   ID             bson.ObjectId   `json:"id" bson:"_id"`
   Name           string          `json:"name" bson:"name"`
   Description    string          `json:"description" bson:"description"`
-  Dates                 DateInfo            `json:"dates" bson:"dates"`
+  Dates          DateInfo        `json:"dates" bson:"dates"`
 }
 
 type FeatureDefinitionRequestEventLog struct {

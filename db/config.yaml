@@ -1,0 +1,9 @@
+# configuration items for mongodb
+database-name: fetedb
+definition-subtest-collection: definitionSubTests
+definition-test-collection: definitionTests
+feature-definition-collection: featureDefinitions
+feature-environment-collection: featureEnvironments
+tag-collection: tags
+definition-requests-log-collection: featureDefinitionRequestEvents
+definition-test-log-collection: featureDefinitionTestEvents
