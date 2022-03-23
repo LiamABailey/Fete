@@ -14,6 +14,7 @@ func BuildRouter() mux.Router {
   r.HandleFunc("/featuredefinition/{featureDefinitionId}", getFeatureDefinition).Methods("GET")
   r.HandleFunc("/featuredefinition", getMatchingFeatureDefinitions).Methods("GET")
   r.HandleFunc("/featuredefinition/{featureDefinitionId}", patchFeatureDefinition).Methods("PATCH")
+  r.HandleFunc("/featuredefinition/{featureDefinitionId}", deleteFeatureDefintion).Methods("DELETE")
   return r
 }
 
@@ -35,4 +36,9 @@ func getMatchingFeatureDefinitions(w http.ResponseWriter, r *http.Request) {
 // support for partial or full updates of an existing feature definition.
 func patchFeatureDefintion(w http.ResponseWriter, r *http.Request) {
   updateFdid = mux.Vars(r)["featureDefinitionId"]
+}
+
+// submit a deletion request
+func deleteFeatureDefintion(w http.ResponseWriter, r *http.Request) {
+  deleteFdid = mux.Vars(r)["featureDefinitionId"]
 }
