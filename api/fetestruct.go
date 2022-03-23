@@ -63,7 +63,7 @@ type FeatureDefinition struct {
   VersionName           string          `json:"version_name" bson:"version_name"`
   InputArgs             []Variable      `json:"input_args" bson:"input_args"`
   ReturnValues          []Variable      `json:"return_values" bson:"return_values"`
-  Dates                 DateInfo            `json:"dates" bson:"dates"`
+  Dates                 DateInfo         `json:"dates" bson:"dates"`
   Tags                  []Tag           `json:"tags" bson:"tags"`
 }
 
